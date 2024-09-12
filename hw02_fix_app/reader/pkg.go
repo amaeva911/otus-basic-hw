@@ -2,11 +2,10 @@ package reader
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"os"
 
-	"github.com/fixme_my_friend/hw02_fix_app/types"
+	"github.com/maeva911/otus-basic-hw/hw02_fix_app/types"
 )
 
 func ReadJSON(filePath string) ([]types.Employee, error) {
@@ -14,20 +13,18 @@ func ReadJSON(filePath string) ([]types.Employee, error) {
 
 	f, err := os.Open(filePath)
 	if err != nil {
-		fmt.Printf("Error: %v", err)
+		return nil, err
 	}
 
 	userData, err := io.ReadAll(f)
 	if err != nil {
-		fmt.Printf("Error: %v", err)
+		return nil, err
 	}
 
 	err = json.Unmarshal(userData, &data)
 	if err != nil {
-		fmt.Printf("Error: %v", err)
+		return nil, err
 	}
 
-	res := data
-
-	return res, nil
+	return data, nil
 }
